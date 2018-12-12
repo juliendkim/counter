@@ -26,6 +26,7 @@ class Timer {
             type: 'success'
         });
         if(this.timerID === null) this.startTime = new Date();
+        if(this.timerID !== null) clearInterval(this.timerID);
 
         const pad = (num, len = 2) => ("0000" + num).slice(-len);
 
@@ -47,24 +48,24 @@ class Timer {
         }, 100);
     };
     @action pause = () => {
+        clearInterval(this.timerID);
         Toast.show({
             text: 'Timer paused',
             textStyle: {textAlign:'center'},
             position: 'top',
             type: 'warning'
         });
-        clearInterval(this.timerID);
     };
     @action reset = () => {
+        clearInterval(this.timerID);
+        this.timerID = null;
+        this.timer = "00:00:00.0";
         Toast.show({
             text: 'Timer stopped',
             textStyle: {textAlign:'center'},
             position: 'top',
             type: 'danger'
         });
-        clearInterval(this.timerID);
-        this.timerID = null;
-        this.timer = 0;
     };
 }
 
